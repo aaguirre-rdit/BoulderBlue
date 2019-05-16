@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+
+{% load inplace_edit %}
+{% load staticfiles %}
+<script src="{% static 'jquery-3.1.1.min.js' %}"></script>
+<script src="{% static 'tools.js' %}"></script>
+<script src="{% static 'jquery.min.js' %}"></script>
+<script src="{% static 'bootstrap.min.js' %}"></script>
+
+
+{% inplace_static %}
+<html {% if request.LANGUAGE_CODE %} lang="{{ request.LANGUAGE_CODE }}"{% endif %}>
+
+<head>
+    <meta charset="utf-8">
+    <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge" /><![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>IoTN Control Center</title>
+
+    {% inplace_css %}
+    <link href="{% static 'bootstrap.min.css' %}" rel="stylesheet">
+
+
+    
+
+</head>
+
+<body id="{% block body_id %}{% endblock %}">
+  <div class='wrapper'/>
+  <div id="sidebar">
+
+    <div class="sidebar-header">
+      <a class="navbar-brand" href="{% url 'mouse_viewer' %}"><strong>CU Boulder</strong> BlueMouse</a>
+    </div>
+    <p class="username">Hi, <strong>{{ request.user|capfirst }}</strong></p>
+    <ul class="list-unstyled components">
+      <li>
+        <a href="{% url 'mouse_viewer/home' %}">Home</a>
+      </li>
+      <li>
+        <a href="{% url 'mouse_viewer' %}">Devices</a>
+      </li>
+      <li>
+        <a href="{% url 'mouse_viewer' %}">Command Create</a>
+      </li>
+      <li>
+        <a href="{% url 'mouse_viewer_select_commands' %}">Command Send</a>
+      </li>
+      <li>
+        <a href="/admin/blue_views/scheduledcommand/">Scheduled Commands</a>
+      </li>
+      <li>
+        <a href="{% url 'mouse_receive_data_log' %}">Received Data</a>
+      </li>
+      <li>
+        <a href="{% url 'mouse_viewer_log' %}">Log</a>
+      </li>
+      <li>
+        <a href="{% url 'mouse_viewer_log' %}">Admin</a>
+      </li>
+    </ul>
+
+  
+
+<div class="timezone">
+  <p id="timezone_p"></p>
+
+</div>
+</div>
+<div class="container">
+  <div class="page-header">
+	  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <div class="container-fluid">
+            <button style="border:none; background:transparent;font-size:20px;" type="button" id="sidebarCollapse" class="btn btn-default">
+                <i class="fas fa-bars"></i>
+            </button>
+		        <h2>{% block title %}{% endblock %}</h2>
+          </div>
+	  </nav>
+            {% block controls %}
+    <hr />
+    <div>
+		{% block extra_controls %}{% endblock extra_controls %}
+      <button type="button" class="btn btn-default expand-all">
+        <i class="glyphicon glyphicon-plus"></i>
+        Expand all
+      </button>
+      <button type="button" class="btn btn-default collapse-all">
+        <i class="glyphicon glyphicon-minus"></i>
+        Collapse all
+      </button>
+      
+    </div>
+    {% endblock controls %}
+  </div>
+  
+{% inplace_js %}
+    <script src="{% static 'mouse.js' %}"></script>
+    {% block javascript %}{% endblock javascript %}
+<link rel="stylesheet" href="{% static 'mouse.css' %}" />
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+</body>
+<script>
+window.doTimezoneStuff('{{ tzone }}', {{ tdelta }});
+</script>
+</html>

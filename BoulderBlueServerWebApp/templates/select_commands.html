@@ -1,0 +1,134 @@
+{% extends "layout2.html" %}
+
+{% block title %}
+<h4>Command Send</h4>
+{% endblock title %}
+
+{% block content %}
+	<div class="container">
+		<div class="panel panel-primary" style="width:80%;">
+			  <div class="panel-heading">Select Commands</div>
+	              <div class="panel-body">
+						<div class="form-group">
+							<label class="control-label" for="shared_text">Shared Text</label>
+							<textarea class="form-control" rows="5" id="shared_text">{{text}}</textarea>
+							<div>
+								<div class="form-group">
+									<div class="pull-left">
+										<button type="button" class="btn btn-primary" onclick="save_text();">
+											Save
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						<br>
+						<br>
+					    {% if error %}
+							<div style="outline: 1px solid red;">
+								<p><span style="margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px; color:red;font-weight:bold;" color="font-color: red; font-weight: bold;"> {{error}}</span></p>
+							</div>
+						    <div class="pull-right">
+								<button type="button" class="btn" onclick="window.open(&quot;{% url 'mouse_viewer' %}&quot;, '_self')">
+									Home
+								</button>
+							</div>
+						{% else %}
+							<div class="panel-heading">
+							   <div>
+								   <div class="float-right">
+							F: Frequency     P: Pulse Width     N: Number of Pulses
+							<img src="/static/frequ.png">
+							</div>
+							   <div class="float-left">
+							   <div class="checkbox">
+									<label>
+										<input type="checkbox"  name="select_all" onclick="stopEventPropagation(); select_all();">
+										<strong>Select All</strong>
+									</label>
+								</div>
+								</div>
+							    </div>
+							</div>
+						    <div class="panel-group">
+								{% for chip in chips_and_commands %}
+								<div class="panel panel-info">
+									<div class="panel-heading panel-title clearfix" data-toggle="collapse" data-parent=".panel-group" href="#company-{{forloop.counter}}" aria-expanded="true" aria-controls="{{forloop.counter}}" style="cursor: pointer;">
+										{% if chip.exception %}
+										<div class="checkbox">
+											<label>
+												<input type="checkbox" value="{{chip.id}}" name="chip_checkbox" onclick="stopEventPropagation()">
+												<strong> {{ chip.name }}</strong>
+											</label>
+										</div>
+										{% else %}
+										<div class="checkbox">
+											<label color="font-color: red;">
+												<input type="checkbox" value="{{chip.id}}" name="chip_checkbox" onclick="stopEventPropagation()">
+												<strong> {{ chip.name }}</strong>
+											</label>
+										</div>
+										{% endif %}
+										<div class="pull-right">
+											<button type="button" class="btn" onclick="stopEventPropagation(); apply_to_all_selected('{{chip.id}}');">
+												Apply to all selected Mice
+											</button>
+										 </div>
+									</div>
+									{% if chip.commands %}
+									<div id="company-{{forloop.counter}}" class="panel-collapse collapse">
+										<ul class="list-group">
+											{% for cmd in chip.commands  %}
+											<li class="list-group-item clearfix">
+												<div class="pull-left">
+													<div class="checkbox">
+														<label>
+															<input type="checkbox" value="{{cmd.command_id}}" name="command_checkbox">
+															{{ cmd.category_name }}  <strong>{{ cmd.name}} {{ cmd.command}}</strong>
+														</label>
+													</div>
+												</div>
+												<div class="pull-right">
+													{% if cmd.has_f %}
+														<label>
+															F:
+															<input type="number" id="frequency_{{cmd.command_id}}" required>Hz &nbsp;&nbsp;
+														</label>
+													{% endif %}
+											    {% if cmd.has_p %}
+													<label>
+														P:
+														<input type="number" id="pulse_{{cmd.command_id}}" required>ms &nbsp;&nbsp;
+													</label>
+												{% endif %}
+												{% if cmd.has_n %}
+													<label>
+														N:
+														<input type="number" id="number_{{cmd.command_id}}" required> &nbsp;&nbsp;
+													</label>
+												{% endif %}
+												<label>
+													order:
+													<input type="number" id="command_order_{{cmd.command_id}}">
+												</label>
+											</div>
+										</li>
+										{% endfor %}
+									</ul>
+								</div>
+								{% endif %}
+								<table class="table"></table>
+							</div>
+							{% endfor %}
+							</div>
+				   <div class="pull-right">
+						<button type="button" class="btn btn-primary" onclick="var commands_str = get_checkbox_values(); window.open(&quot;{% url 'mouse_viewer_send_selected_commands'  chip_commands=12345 %}&quot;.replace(&quot;12345&quot;, commands_str + &quot;/&quot;), '_self')">
+							Send Selected Commands
+						</button>
+				   </div>
+				</div> <!-- panel body -->
+           </div> <!-- panel panel-primary -->
+	</div>  <!-- div for the container -->
+    {% endif %}
+
+{% endblock content %}

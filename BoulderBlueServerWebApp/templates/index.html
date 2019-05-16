@@ -1,0 +1,90 @@
+{% extends "layout2.html" %}
+
+{% block title %}
+    <h4>Mice</h4>
+{% endblock title %}
+
+{% block content %}
+	<div class="container">
+        <div class="form-group">
+            <div class="panel panel-primary" style="width:80%; auto">
+                <div class="panel-heading">Devices</div>
+                <div class="panel-body">
+                    <label for="shared_text">Shared Text</label>
+                    <textarea class="form-control" rows="5" id="shared_text">{{text}}</textarea>
+                    <div class="pull-right">
+                        <button type="button" style="margin:5px 0px" class="btn btn-primary" onclick="save_text();">
+                            Save
+                        </button>
+                    </div>
+                </div>
+
+                <div class="panel-group" style="width:97%; margin:auto; auto">
+                    {% for group in chipGroups %}
+                    <div class="panel panel-info">
+                        <div class="panel-heading panel-title clearfix" data-toggle="collapse" data-parent=".panel-group" href="#company-{{forloop.counter}}" aria-expanded="true" aria-controls="{{forloop.counter}}" style="cursor: pointer;">
+                            <strong>{{ group.name }}</strong>
+                            <div class="pull-right">Chips: {{ group.chips|length }}</div>
+                        </div>
+                        {% if group.chips %}
+                        <div id="company-{{forloop.counter}}" class="panel-collapse collapse">
+                            <ul class="list-group">
+                                {% for chip in group.chips  %}
+                                <li class="list-group-item clearfix">
+                                    <strong>{{ chip.name|truncatechars:56 }}   {{ chip.mac|truncatechars:56 }}</strong> {{ chip.exception }}
+                                    <div class="pull-right">
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                Actions <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu dropdown-menu-right">
+                                                <!---
+                                                <li>
+                                                    <a href="{% url 'course_viewer_course' course.data.id}">
+                                                        <i class="glyphicon glyphicon-eye-open"></i>
+                                                        View data
+                                                    </a>
+                                                </li>
+                                                --->
+                                                {% if 'connected' in group.id %}
+                                                <li>
+                                                    <a style="color:red;" href="{% url 'mouse_viewer_unregister' chip.mac %}">
+                                                        <i class="glyphicon glyphicon-remove"></i>
+                                                        Remove
+                                                    </a>
+                                                </li>
+                                                {% endif %}
+                                                {% if 'registered' in group.id %}
+                                                <li>
+                                                    <a style="color:red;" href="{% url 'mouse_viewer_unregister' chip.mac %}">
+                                                        <i class="glyphicon glyphicon-remove"></i>
+                                                        Remove
+                                                    </a>
+                                                </li>
+
+                                                {% endif %}
+                                                {% if 'discovered' in group.id %}
+                                                <li>
+                                                    <a href="{% url 'mouse_viewer_register' chip.mac %}">
+                                                        <i class="glyphicon glyphicon-ok"></i>
+                                                        Register
+                                                    </a>
+                                                </li>
+                                                {% endif %}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        {% endif %}
+                        <table class="table"></table>
+                    </div>
+                    {% endfor %}
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

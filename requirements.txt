@@ -1,0 +1,4 @@
+django==1.8.17
+django-bootstrap3
+django-inplaceedit
+django-inplaceedit-bootstrap

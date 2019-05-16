@@ -1,0 +1,71 @@
+{% extends "layout2.html" %}
+
+{% block title %}
+    <h4>Log</h4>
+{% endblock title %}
+
+{% block content %}
+        <div>
+			<div class="panel panel-primary" style="width:90%; auto">
+				<table class="table table-bordered table-striped table-condense">
+					<thead>
+						<tr>
+							<th scope="col">Send Date and Time</th>
+							<th scope="col">Chip Name</th>
+							<th scope="col">Scheduled</th>
+							<th scope="col">Category</th>
+							<th scope="col">Command</th>
+							<th scope="col">Type</th>
+							<th scope="col">Data</th>
+							<th scope="col">F</th>
+							<th scope="col">P</th>
+							<th scope="col">N</th>
+							<th scope="col">Result</th>
+						 </tr>
+					</thead>
+					<tbody>
+					{% for log in logs %}
+					{% if log.error %}
+					<tr>
+						<th scope="row">{{log.send_date}}</th>
+						<td>{{log.chip_name}}</td>
+						<td>{{log.scheduled}}</td>
+						<td>{{log.command_category}}</td>
+						<td>{{log.command_name}}</td>
+						<td>{{log.type_data}}</td>
+						<td>{{log.t_result}}</td>
+						<td>{{log.f}}</td>
+						<td>{{log.p}}</td>
+						<td>{{log.n}}</td>
+						<td>{{log.error}}</td>
+					</tr>
+					{% else %}
+					<tr>
+						<th scope="row">{{log.send_date}}</th>
+						<td>{{log.chip_name}}</td>
+						<td>{{log.scheduled}}</td>
+						<td>{{log.command_category}}</td>
+						<td>{{log.command_name}}</td>
+						<td>{{log.type_data}}</td>
+						<td>{{log.t_result}}</td>
+						<td>{{log.f}}</td>
+						<td>{{log.p}}</td>
+						<td>{{log.n}}</td>
+						<td>Success</td>
+					</tr>
+					{% endif %}
+					{% endfor %}
+					</tbody>
+				</table>
+				<div class="pull-right">
+					<br>
+					<button type="button" class="btn btn-primary" onclick="open_csv(&quot;{% url 'mouse_viewer_csv' %}&quot;)">
+						Load CSV
+					</button>
+				</div>
+            </div>
+        </div>
+
+{% endblock content %}
+
+

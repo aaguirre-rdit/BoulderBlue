@@ -1,0 +1,298 @@
+body{
+  margin:0;
+  padding:0;
+}
+.wrapper{
+	height:100vh;
+    border:1px solid black;
+    display: flex;
+    flex-direction:row;
+    width: 100%;
+    align-items: stretch;
+}
+.sidebar-header{
+	border-bottom: 1px solid rgba(255,255,255,0.4);
+}
+#sidebar a, #sidebar > p, .timezone {
+	color: white;
+	padding:1rem;
+}
+#sidebar a:hover {
+	color:white;
+	text-decoration:none;
+	font-weight:bold;
+	transition: font-weight 150ms;
+}
+#sidebar ul li {
+	height:5rem;
+	font-size:16px;
+}
+#sidebar {
+	color:white;
+	background:#3d5afe;
+    display:flex;
+    flex-direction:column;
+    min-width: 250px;
+    max-width: 250px;
+    justify-content:space-around;
+    font-weight:300;
+}
+.page-nav{
+	display:flex;
+	align-items:center;
+}
+#sidebar.active {
+    margin-left: -250px;
+    transition:margin-left 300ms;
+}
+.page-header {
+	display:flex;
+	flex-direction:column;
+	justify-content:center;
+}
+.container {
+	overflow-y:scroll;
+}
+
+/********************************************************/
+
+i.glyphicon {
+    display: inline-block;
+    vertical-align: text-top;
+}
+a i.glyphicon,
+button i.glyphicon {
+    margin-right: 5px;
+}
+[data-toggle="collapse"] {
+    cursor: pointer;
+}
+.glyphicon[data-toggle="collapse"] {
+    margin-right: 10px;
+    color: #333;
+    font-size: 120%;
+    vertical-align: top;
+    transition: color 150ms;
+}
+.glyphicon[data-toggle="collapse"]:hover {
+    color: #666;
+}
+
+/********************************************************/
+
+td.content-id {
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+
+
+@media (max-width: 768px) {
+    #sidebar {
+        margin-left: -250px;
+    }
+    #sidebar.active {
+        margin-left: 0;
+    }
+}
+
+/********************************************************/
+
+.inplaceedit {
+    cursor: auto !important;
+}
+.editing .inplaceedit {
+    cursor: pointer !important;
+}
+
+.inplaceeditform {
+    display: inline-block;
+    cursor: default;
+}
+
+.inplaceeditform .apply,
+.inplaceeditform .cancel {
+    cursor: pointer;
+}
+.inplaceeditform .apply .glyphicon,
+.inplaceeditform .cancel .glyphicon {
+    transition: all 150ms;
+    cursor: pointer;
+}
+.inplaceeditform .apply:hover .glyphicon {
+    color: #357935;
+}
+.inplaceeditform .cancel:hover .glyphicon {
+    color: #eba5a3;
+}
+
+.inplaceedit.enable {
+   border-radius: 3px;
+   box-shadow: 0 2px 0 0 rgba(85,0,230,0.3);
+}
+.inplaceedit.enable:hover,
+.file-editor {
+    background: rgba(255,255,255,0.2);
+    border-radius: 5px;
+    border: 2px dashed rgba(85,0,230,0.3);
+    margin: -2px;
+    box-shadow: none;
+}
+.inplaceedit.enable:hover img {
+    outline: 0;
+}
+
+.inplaceedit ul.success,
+.inplaceedit ul.errors,
+.inplaceeditform ul.success,
+.inplaceeditform ul.errors {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 16px;
+    line-height: 50px;
+}
+
+.inplaceedit.textareainplaceedit {
+    display: block;
+    min-height: 20px;
+    min-width: 100%;
+}
+.textareainplaceedit+.inplaceeditform {
+    display: block;
+}
+.inplaceeditform textarea {
+    max-width: 100%;
+    padding: 6px 12px !important;
+}
+
+.textinplaceedit {
+    display: inline-block;
+    min-width: 20px;
+    min-height: 20px;
+}
+
+/********************************************************/
+
+td.content-location {
+    text-align: center;
+}
+td.content-location .location {
+    transition: color 150ms;
+}
+
+.file-editor {
+    position: relative;
+    display: none;
+    height: 72px;
+    padding: 10px;
+    margin-top: 12px;
+    transition: all 150ms;
+}
+body.editing .file-editor {
+    display: block;
+}
+
+.file-editor .file-input {
+    position: absolute;
+    top: -9999em;
+    left: -9999em;
+}
+
+.file-editor .dropzone {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: 0;
+    text-align: center;
+    font-weight: normal;
+    padding: 2px;
+    cursor: pointer;
+    transition: background-color 150ms;
+    z-index: 1;
+}
+.file-editor .dropzone.dragover {
+    z-index: 3;
+}
+.file-editor:hover .dropzone,
+.file-editor .dropzone:hover,
+.file-editor .dropzone.dragover {
+    background-color: #fff1ff;
+}
+
+.file-editor .dropzone span {
+    pointer-events: none;
+}
+.file-editor .dropzone span,
+.file-editor .dropzone.dragover .empty-msg,
+.file-editor .dropzone.uploading .empty-msg,
+.file-editor .dropzone.uploaded .empty-msg,
+.file-editor .dropzone.processing .empty-msg {
+    display: none;
+}
+.file-editor .dropzone .empty-msg,
+.file-editor .dropzone.dragover .dragover-msg,
+.file-editor .dropzone.uploading .file-msg,
+.file-editor .dropzone.uploaded .file-msg,
+.file-editor .dropzone.processing .file-msg,
+.file-editor .dropzone.uploading .uploading-msg,
+.file-editor .dropzone.uploaded .uploaded-msg,
+.file-editor .dropzone.processing .processing-msg {
+    display: inline-block;
+}
+.file-editor .dropzone.empty ~ form,
+.file-editor .dropzone.processing ~ form {
+    position: absolute;
+    top: -9999em;
+    left: -9999em;
+}
+
+.file-editor .dropzone .note {
+    position: absolute;
+    display: inline-block;
+    bottom: 2px;
+    left: 0;
+    right: 0;
+    text-align: center;
+}
+.file-editor .dropzone .icon {
+    display: none;
+}
+.file-editor .dropzone.uploading .icon-loading,
+.file-editor .dropzone.processing .icon-loading {
+    display: inline;
+}
+.file-editor .dropzone.uploaded .icon-ok {
+    display: inline;
+}
+
+.file-editor i.glyphicon {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    left: 0;
+    transform: translateY(-50%);
+}
+
+.file-editor input[type="submit"] {
+    position: relative;
+    z-index: 2;
+}
+
+/********************************************************/
+
+.add-btn {
+    display: none;
+}
+body.editing .add-btn {
+    display: inline-block;
+}
+
+.add-form {
+    padding: 0 24px 20px;
+}

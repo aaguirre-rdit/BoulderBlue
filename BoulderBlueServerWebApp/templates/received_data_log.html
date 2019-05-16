@@ -1,0 +1,55 @@
+{% extends "layout2.html" %}
+
+{% block title %}
+    <h4>Received Data</h4>
+{% endblock title %}
+
+{% block content %}
+
+        <div>
+			<div class="panel panel-primary" style="width:90%; auto">
+				<table class="table table-bordered table-striped table-condense">
+					<thead>
+						<tr>
+							<th scope="col">Received Date and Time</th>
+							<th scope="col">Chip Name</th>
+							<th scope="col">Type</th>
+							<th scope="col">Data</th>
+							<th scope="col">Result</th>
+						 </tr>
+					</thead>
+					<tbody>
+					{% for log in logs %}
+					{% if log.error %}
+					<tr>
+						<th scope="row">{{log.received_time}}</th>
+						<td>{{log.send_chip}}</td>
+						<td>{{log.type_data}}</td>
+						<td>{{log.t_result}}</td>
+						<td>{{log.error}}</td>
+					</tr>
+					{% else %}
+					<tr>
+						<th scope="row">{{log.received_time}}</th>
+						<td>{{log.send_chip}}</td>
+						<td>{{log.type_data}}</td>
+						<td>{{log.t_result}}</td>
+						<td>Success</td>
+					</tr>
+					{% endif %}
+					{% endfor %}
+					</tbody>
+				</table>
+				<div class="pull-right">
+					<br>
+					<button type="button" class="btn btn-primary" onclick="open_csv(&quot;{% url 'mouse_receive_data_csv' %}&quot;)">
+								Load CSV
+					</button>
+				</div>
+			</div>
+        </div>
+
+ 
+
+
+{% endblock content %}

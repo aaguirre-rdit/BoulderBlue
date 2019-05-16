@@ -1,0 +1,58 @@
+{% extends "layout2.html" %}
+
+{% block title %}
+    {% if big_error %}
+        <h4>Error sending</h4>
+    {% else %}
+        <h4>Log: Sent</h4>
+    {% endif %}
+
+{% endblock title %}
+
+{% block content %}
+	<div class="container">
+		<div class="panel panel-primary" style="width:80%; auto">
+			<div class="panel-body">
+				<div class="form-group">
+					<label for="shared_text">Shared Text</label>
+					<textarea class="form-control" rows="5" id="shared_text">{{text}}</textarea>
+					<div style="margin:5px 0px;">
+						<button type="button" class="btn btn-primary" onclick="save_text();">
+							Save
+						</button>
+					</div>
+				</div>
+
+				{% if big_error %}
+
+				<div style="outline: 1px solid red;">
+					<p><span style="margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px; color:red;font-weight:bold;" color="font-color: red; font-weight: bold;"> {{big_error}}</span></p>
+				</div>
+				<div class="pull-right">
+					<button type="button" class="btn btn-primary" style="5px 0px" onclick="window.open(&quot;{% url 'mouse_viewer_select_commands' %}&quot;), '_self')">
+						Go Back
+					</button>
+				</div>
+
+				{% else %}
+				<div style="outline: 1px solid #eeeeee;;">
+					{% for log in logs %}
+					{% if log.error %}
+					<p><span style="margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px; color:red;font-weight:bold;">{{log.send_date}} {{log.chip_name}} {{log.command_category}} {{log.command_name}} ({{log.command_command}}, F: {{log.f}} Hz, P: {{log.p}}, N: {{log.n}} ): {{log.error}} </span></p>
+					{% else %}
+					<p><span style="margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px; color:green;font-weight:bold;">{{log.send_date}} {{log.chip_name}} {{log.command_category}} {{log.command_name}} ({{log.command_command}}, F: {{log.f}} Hz, P: {{log.p}}, N: {{log.n}}): Success </span></p>
+					{% endif %}
+					{% endfor %}
+				</div>
+
+				<div class="pull-right">
+					<button type="button" class="btn btn-primary" onclick="window.open(&quot;{% url 'mouse_viewer' %}&quot;, '_self')">
+						Home
+					</button>
+				</div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+{% endblock content %}

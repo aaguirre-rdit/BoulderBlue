@@ -1,0 +1,128 @@
+/* LOGIN FORM */
+@import url('https://fonts.googleapis.com/css?family=Roboto:100');
+
+body.login {
+    background:url(https://i.pinimg.com/originals/98/97/ad/9897adca581976d74c2d3e298e00b22b.jpg) no-repeat;
+	background-position:center;
+	background-size:cover;
+	display:flex;
+	justify-content:flex-end;
+	align-items:flex-end;
+	color:white;
+	font-family:Roboto, sans-serif;
+}
+.login #header {
+	visibility:hidden;
+	background:transparent;
+	display:flex;
+	justify-content:center;
+}
+.login #header:hover {
+	text-shadow:1px 1px 5px rgba(255,255,255,0.5);
+	font-weight:bold;
+	transition:font-weight 0.1s;
+}
+textarea:focus, input:focus{
+    outline: none;
+}
+div#branding{
+	display:none;
+	}
+.login #header:after{
+	text-align:center;
+	content:'Sign in to CU IoT Center';
+	font-size:24px;
+	visibility:visible;
+}
+.login #container {
+	min-width:unset;
+    background: rgb(61,89,254);
+	background: linear-gradient(212deg, rgba(61,89,254,1) 0%, rgba(0,212,255,1) 100%);
+  box-shadow:-5px -3px 24px rgba(0,0,0,0.5);
+  color:white;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  position:fixed;
+  width:40vw !important;
+  height:100vh;
+  
+}
+
+.login #content-main {
+    width: 100%;
+}
+
+.login form {
+    margin-top: 1em;
+}
+
+.login .form-row {
+    padding: 4px 0;
+    width: 100%;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    margin:20px auto;
+}
+.login .form-row input {
+	color:white;
+	background:transparent;
+	padding:10px 20px;
+	border: 1px solid white;
+	border-radius:25px;
+	font-size:15px;
+	
+}
+
+.login .form-row label {
+    content:none;
+    display:none;
+}
+
+
+.login .form-row #id_username, .login .form-row #id_password {
+    color:white;
+    background:transparent;
+}
+
+.login span.help {
+    font-size: 10px;
+    display: block;
+}
+
+.login .submit-row {
+    display:flex;
+    justify-content:center;
+}
+
+.login .password-reset-link {
+    text-align: center;
+}
+.login .submit-row input {
+	margin:2rem auto;
+	font-weight:20px;
+	padding:10px 20px;
+	background:unset;
+	background:transparent;
+	border:1px solid white;
+	border-radius:25px;
+	color:white;
+	font-size:16px;
+	width:200px;
+}
+.errornote, ul.errorlist {
+    border-radius: 25px;
+}
+ul.errorlist li{
+	background-color:transparent;
+	color:red;
+	font-weight:bold;
+}
+.login .submit-row input:hover{
+	color:rgb(61,89,254);
+	background:white;
+	transition: background-color 3s;
+	transition:color 0.5s;
+}
